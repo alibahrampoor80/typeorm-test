@@ -1,8 +1,8 @@
 import { IsNumber } from "class-validator";
 
 export class PaginationDto {
-  @IsNumber()
+  // @IsNumber()
   page: number;
-  @IsNumber()
+  // @IsNumber()
   limit: number;
 }

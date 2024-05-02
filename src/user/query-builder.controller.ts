@@ -1,37 +1,19 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
-  Patch,
   Param,
-  Delete,
-  Query, ParseIntPipe
+  Query
 } from "@nestjs/common";
-import { UserService } from "./user.service";
+import { UserBuilderService } from "./query.builder.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { UserEntity } from "./entities/user.entity";
 import { PaginationDto } from "./dto/pagination.dto";
 import { ProfileDto } from "./dto/profile.dto";
 
-@Controller("user")
-export class UserController {
-  constructor(private readonly userService: UserService) {
-  }
-
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
-
-  @Post("insert")
-  insert(@Body() createUserDto: CreateUserDto) {
-    return this.userService.insert(createUserDto);
-  }
-  @Post("profile")
-  createProfile(@Body() ProfileDto: ProfileDto) {
-    return this.userService.createProfile(ProfileDto);
+@Controller("builder")
+export class UserBuilderController {
+  constructor(private readonly userService: UserBuilderService) {
   }
 
   @Get()
@@ -68,18 +50,4 @@ export class UserController {
     return this.userService.blogOfUser(+userId);
   }
 
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
-  }
-
-  @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.userService.remove(+id);
-  }
-
-  @Delete("delete/:id")
-  delete(@Param("id") id: string) {
-    return this.userService.delete(+id);
-  }
 }
